@@ -1,0 +1,82 @@
+
+/* Background gradient */
+.signup-bg {
+  background: linear-gradient(to right, #e3ffe7, #d9e7ff);
+  min-height: 90vh;
+}
+
+/* Glassy card */
+.signup-card {
+    margin-top: 40px;
+  width: 100%;
+  max-width: 420px;
+  backdrop-filter: blur(25px);
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  padding: 30px;
+  animation: floatIn 0.9s ease;
+}
+
+/* Title */
+.signup-title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Input styling */
+.signup-input {
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+/* Button */
+.signup-btn {
+  background-color: #28a745;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.signup-btn:hover {
+  background-color: #218838;
+}
+
+/* Footer */
+.signup-footer {
+  font-size: 14px;
+  color: #333;
+}
+
+.login-link {
+  color: #007bff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+/* Animation */
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Padding */
+@media (max-width: 576px) {
+  .signup-card {
+    padding: 20px;
+    border-radius: 15px;
+  }
+}

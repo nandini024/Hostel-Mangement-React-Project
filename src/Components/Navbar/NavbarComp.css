@@ -1,0 +1,50 @@
+.custom-navbar {
+  background: linear-gradient(90deg, #1e3c72, #2a5298); /* nice blue gradient */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* stronger shadow */
+  padding: 0.8rem 1rem;
+  font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 1050;
+  transition: background-color 0.3s ease;
+}
+
+.custom-navbar .navbar-brand {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  user-select: none;
+}
+
+.custom-navbar .navbar-brand:hover {
+  color: #ffd700; /* gold on hover */
+  text-shadow: 0 0 8px #ffd700;
+}
+
+.nav-links .nav-link {
+  color: #e0e0e0;
+  margin-left: 1rem;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.3s ease;
+}
+
+.nav-links .nav-link:hover {
+  color: #ffd700;
+  text-shadow: 0 0 8px #ffd700;
+  cursor: pointer;
+}
+
+.navbar-toggler {
+  border-color: #ffd700;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' 
+  xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 215, 0, 1%29' 
+  stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}

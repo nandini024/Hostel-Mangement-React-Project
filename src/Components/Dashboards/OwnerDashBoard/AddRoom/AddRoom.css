@@ -1,0 +1,143 @@
+
+
+/* AddRoom.css */
+
+.add-room-container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px 25px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2c3e50;
+}
+
+.success-msg {
+  background-color: #d4edda;
+  border-left: 5px solid #28a745;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  color: #155724;
+  border-radius: 4px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.add-room-form label {
+  display: block;
+  margin-bottom: 18px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #444;
+}
+
+input[type='text'],
+input[type='number'],
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 6px;
+  border: 1.8px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+}
+
+input[type='text']:focus,
+input[type='number']:focus,
+select:focus,
+textarea:focus {
+  border-color: #3a86ff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(58, 134, 255, 0.5);
+}
+
+textarea {
+  resize: vertical;
+}
+
+.error-msg {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+.required {
+  color: #e74c3c;
+  margin-left: 4px;
+}
+
+fieldset.amenities-fieldset {
+  border: 1.5px solid #ddd;
+  border-radius: 6px;
+  padding: 15px 20px 10px;
+  margin-bottom: 20px;
+}
+
+fieldset.amenities-fieldset legend {
+  font-weight: 700;
+  font-size: 15px;
+  color: #555;
+  padding: 0 6px;
+}
+
+.checkbox-label {
+  display: inline-block;
+  margin-right: 20px;
+  font-weight: 500;
+  font-size: 14px;
+  user-select: none;
+}
+
+.file-input-label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 20px;
+  display: block;
+}
+
+input[type='file'] {
+  margin-top: 6px;
+}
+
+.submit-btn {
+  width: 100%;
+  background-color: #3a86ff;
+  color: white;
+  padding: 12px 0;
+  border: none;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #265eec;
+}
+
+/* Responsive */
+
+@media (max-width: 480px) {
+  .add-room-container {
+    margin: 20px 15px;
+    padding: 20px 15px;
+  }
+
+  .checkbox-label {
+    margin-right: 12px;
+    font-size: 13px;
+  }
+}

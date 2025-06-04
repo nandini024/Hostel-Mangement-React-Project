@@ -1,7 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
-import './Footer.css'; // 👈 Import the CSS file
-
+import './Footer.css'; 
 function Footer() {
   return (
     <Row className="mt-5">
@@ -19,12 +18,13 @@ function Footer() {
             target="_blank" 
             rel="noopener noreferrer"
           >
-            {' '}Nandini..! 💖
+            {' '}Nandini.....!💖
           </a>
         </small>
       </Col>
     </Row>
   );
 }
+
 
 export default Footer;

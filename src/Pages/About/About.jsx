@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Card, Accordion } from 'react-bootstrap';
 import { FaBed, FaWifi, FaLock, FaUtensils, FaUsers, FaHeart } from 'react-icons/fa';
 
+import vineethimg from "../../assets/images/vineeth.jpeg"
 function AboutSection() {
   return (
     <section className="about-section py-5 bg-light">
@@ -172,6 +173,20 @@ function AboutSection() {
             <p className="text-muted small">Founder & Manager</p>
           </Col>
         </Row>
+        <Row className="mb-5 text-center">
+         
+          <Col md={4} className="mx-auto">
+            <img
+              src={vineethimg}
+              className="rounded-circle shadow mb-2"
+              width="120"
+              height="120"
+              alt="Owner"
+            />
+            <h6 className="fw-semibold mt-2">Mr. Vineeth Kumar </h6>
+            <p className="text-muted small">Assist.Manager</p>
+          </Col>
+        </Row>
 
         <Row className="mb-5">
           <h4 className="fw-bold text-center text-warning mb-4">What Our Residents Say</h4>
@@ -212,4 +227,5 @@ function AboutSection() {
 }
 
 export default AboutSection;
+
 

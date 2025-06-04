@@ -42,8 +42,8 @@ function NavbarComp() {
 
             {loggedinUser ? (
               <>
-                <span className="nav-link fw-bold text-primary">
-                  {loggedinUser.user.displayName || "User"}
+                <span className="nav-link fw-bold text-primary" style={{color:"red"}}>
+                 welcome..! {loggedinUser.user.displayName || "User"}
                 </span>
                 <span className="nav-link logout-link" onClick={logout} style={{ cursor: "pointer" }}>
                   Logout

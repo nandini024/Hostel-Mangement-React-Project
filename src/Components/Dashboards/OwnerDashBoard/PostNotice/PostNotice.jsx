@@ -10,10 +10,10 @@ function PostNotification({ onPost }) {
       alert('Please fill in both Title and Message!');
       return;
     }
-    // Pass notification data to parent or API handler
+    
     onPost({ title: title.trim(), message: message.trim() });
 
-    // Clear form after posting
+  
     setTitle('');
     setMessage('');
   };

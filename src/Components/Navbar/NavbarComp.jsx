@@ -30,7 +30,7 @@ function NavbarComp() {
     <Navbar expand="lg" className="custom-navbar shadow-sm" sticky="top">
       <Container>
         <Navbar.Brand as={Link} to="/" className="brand-text">
-          🏨 Karthik PG For Men
+          🏨 Karthik Coliving 
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="bg-light" />
         <Navbar.Collapse id="basic-navbar-nav">

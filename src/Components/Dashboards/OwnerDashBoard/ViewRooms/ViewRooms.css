@@ -1,0 +1,19 @@
+.room-card {
+  background: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.room-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.room-image {
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.w-45 {
+  width: 48%;
+}

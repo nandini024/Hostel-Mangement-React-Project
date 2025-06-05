@@ -14,6 +14,7 @@ import Footer from './Components/Footer/Footer'
 import AddRoom from './Components/Dashboards/OwnerDashBoard/AddRoom/AddRoom'
 import UpdateMess from './Components/Dashboards/OwnerDashBoard/UpdateMess/UpdateMess'
 import PostNotice from './Components/Dashboards/OwnerDashBoard/PostNotice/PostNotice'
+import ViewRooms from './Components/Dashboards/OwnerDashBoard/ViewRooms/ViewRooms'
 
 
 const App = () => {
@@ -33,6 +34,7 @@ const App = () => {
       <Route path='add_room' element={<AddRoom/>}/>
       <Route path='update_mess' element={<UpdateMess/>}/>
       <Route path='post_notice' element={<PostNotice/>}/>
+      <Route path='view_rooms' element={<ViewRooms/>}/>
       </Route>
       <Route path='/userDashboard' element={<UserDashBoard/>}/>
 

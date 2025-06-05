@@ -1,113 +1,109 @@
-// AddRoom.js
-import React, { useState } from 'react';
-import './AddRoom.css';
-import {updateDoc,doc,arrayUnion} from "firebase/firestore"
-import { db } from '../../../firebaseConfig/firebaseConfig';
-import { toast ,ToastContainer} from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-
-
+import React, { useState } from "react";
+import "./AddRoom.css";
+import { updateDoc, doc, arrayUnion } from "firebase/firestore";
+import { db } from "../../../firebaseConfig/firebaseConfig";
+import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function AddRoom() {
-  const loggedInOwnerData=JSON.parse(localStorage.getItem("loggedInOwner"))
-  console.log(loggedInOwnerData)
+  const [imageUploading, setImageUploading] = useState(false);
+
+  const navigate = useNavigate();
+  const loggedInOwnerData = JSON.parse(localStorage.getItem("loggedInOwner"));
+
   const [formData, setFormData] = useState({
-    roomNumber: '',
-    roomType: 'Single',
-    capacity: '',
-    price: '',
-    availability: 'Available',
-    description: '',
+    roomNumber: "",
+    roomType: "Single",
+    capacity: "",
+    price: "",
+    availability: "Available",            
+    description: "",
     amenities: [],
-    images: [],
+    images: "",
   });
 
   const [errors, setErrors] = useState({});
-  const [successMsg, setSuccessMsg] = useState('');
 
-  // Handle input changes
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+  //SETTING IMAGE URL........!
 
-    if (type === 'checkbox') {
-      let newAmenities = [...formData.amenities];
-      if (checked) {
-        newAmenities.push(value);
-      } else {
-        newAmenities = newAmenities.filter((a) => a !== value);
+  const handleImageSubmit = async (e) => {
+    e.preventDefault();
+    setImageUploading(true);
+    try {
+      const imgFile = e.target.files[0];
+      const imgurl = await uploadImageToCloudinary(imgFile);
+      setFormData((prev) => ({ ...prev, images: imgurl }));
+      toast.success("Image uploaded!");
+    } catch (err) {
+      console.log(err);
+      toast.error("Image upload failed.");
+    } finally {
+      setImageUploading(false);
+    }
+  };
+
+  //CLOUDINARYYY.............
+  const uploadImageToCloudinary = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "hostel_management");
+
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/dtnv89alf/image/upload",
+      {
+        method: "POST",
+        body: formData,
       }
-      setFormData({ ...formData, amenities: newAmenities });
-    } else if (type === 'file') {
-      setFormData({ ...formData, images: Array.from(e.target.files) });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
+    );
+
+    const data = await response.json();
+    console.log(data);
+
+    if (!data.secure_url) throw new Error("Image upload failed.");
+    return data.secure_url;
   };
 
-  // Simple validation
-  const validate = () => {
-    const errs = {};
-    if (!formData.roomNumber.trim()) errs.roomNumber = 'Room Number is required';
-    if (!formData.capacity || formData.capacity <= 0) errs.capacity = 'Capacity must be > 0';
-    if (!formData.price || formData.price <= 0) errs.price = 'Price must be > 0';
-    return errs;
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  // Submit handler
+    try {
+      const ownerRef = doc(db, "owners", loggedInOwnerData.user.displayName);
+      await updateDoc(ownerRef, { rooms: arrayUnion(formData) });
 
-const navigate=useNavigate()
-  const handleSubmit = async(e) => {
-        e.preventDefault();
-  
-    try{
-      const ownerRoomData=doc(db,"owners",loggedInOwnerData.user.displayName)
-      
-     await updateDoc(ownerRoomData, {
-     rooms: arrayUnion(formData)
-     })
-     toast.success("Room details Added  sucessfully")
-     navigate("/ownerDashboard")
-
+      toast.success("Room added successfully!");
+      navigate("/ownerDashboard");
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to add room.");
     }
-    catch(err){
-      console.log(err)
-
-    }
-
-  
-  
-  
-
-
-
-    
-
-  
-
-    
   };
 
   return (
     <div className="add-room-container">
       <h1>Add New Room</h1>
-      {successMsg && <p className="success-msg">{successMsg}</p>}
-
-      <form className="add-room-form" onSubmit={handleSubmit} noValidate>
+      <form className="add-room-form" onSubmit={handleSubmit}>
         <label>
           Room Number <span className="required">*</span>
           <input
             type="text"
-            name="roomNumber"
             value={formData.roomNumber}
-            onChange={handleChange}
-            placeholder="e.g., A101"
+            onChange={(e) =>
+              setFormData({ ...formData, roomNumber: e.target.value })
+            }
           />
-          {errors.roomNumber && <p className="error-msg">{errors.roomNumber}</p>}
+          {errors.roomNumber && (
+            <p className="error-msg">{errors.roomNumber}</p>
+          )}
         </label>
 
         <label>
           Room Type
-          <select name="roomType" value={formData.roomType} onChange={handleChange}>
+          <select
+            value={formData.roomType}
+            onChange={(e) =>
+              setFormData({ ...formData, roomType: e.target.value })
+            }
+          >
             <option>Single</option>
             <option>Double</option>
             <option>Triple</option>
@@ -119,11 +115,10 @@ const navigate=useNavigate()
           Capacity <span className="required">*</span>
           <input
             type="number"
-            name="capacity"
-            min="1"
             value={formData.capacity}
-            onChange={handleChange}
-            placeholder="Number of occupants"
+            onChange={(e) =>
+              setFormData({ ...formData, capacity: e.target.value })
+            }
           />
           {errors.capacity && <p className="error-msg">{errors.capacity}</p>}
         </label>
@@ -132,18 +127,21 @@ const navigate=useNavigate()
           Price per Month ($) <span className="required">*</span>
           <input
             type="number"
-            name="price"
-            min="0"
             value={formData.price}
-            onChange={handleChange}
-            placeholder="e.g., 500"
+            onChange={(e) =>
+              setFormData({ ...formData, price: e.target.value })
+            }
           />
-          {errors.price && <p className="error-msg">{errors.price}</p>}
         </label>
 
         <label>
           Availability
-          <select name="availability" value={formData.availability} onChange={handleChange}>
+          <select
+            value={formData.availability}
+            onChange={(e) =>
+              setFormData({ ...formData, availability: e.target.value })
+            }
+          >
             <option>Available</option>
             <option>Occupied</option>
             <option>Under Maintenance</option>
@@ -153,46 +151,50 @@ const navigate=useNavigate()
         <label>
           Description
           <textarea
-            name="description"
             value={formData.description}
-            onChange={handleChange}
-            placeholder="Additional room details..."
+            onChange={(e) =>
+              setFormData({ ...formData, description: e.target.value })
+            }
             rows="3"
           />
         </label>
 
+         {/* Amenities checkboxes individually handled */}
         <fieldset className="amenities-fieldset">
           <legend>Amenities</legend>
-          {['Wi-Fi', 'AC', 'Attached Bathroom', 'Balcony'].map((amenity) => (
-            <label key={amenity} className="checkbox-label">
+          {["Wi-Fi", "AC", "Attached Bathroom", "Balcony"].map((item) => (
+            <label key={item}>
               <input
                 type="checkbox"
-                name="amenities"
-                value={amenity}
-                checked={formData.amenities.includes(amenity)}
-                onChange={handleChange}
+                checked={formData.amenities.includes(item)}
+                onChange={(e) => {
+                  const updatedAmenities = e.target.checked
+                    ? [...formData.amenities, item]
+                    : formData.amenities.filter((a) => a !== item);
+                  setFormData({ ...formData, amenities: updatedAmenities });
+                }}
               />
-              {amenity}
+              {item}
             </label>
           ))}
         </fieldset>
 
-        <label className="file-input-label">
-          Upload Images
-          <input
-            type="file"
-            name="images"
-            multiple
-            accept="image/*"
-            onChange={handleChange}
-          />
+        <label>
+          Upload Image <span className="required">*</span>
+          <input type="file" accept="image/*" onChange={handleImageSubmit} />
+          {errors.images && <p className="error-msg">{errors.images}</p>}
         </label>
 
-        <button type="submit" className="submit-btn">Add Room</button>
+        <button
+          type="submit"
+          className="submit-btn"
+          disabled={imageUploading || !formData.images}
+        >
+          {imageUploading ? "Uploading Image..." : "Add Room"}
+        </button>
       </form>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
-
   );
 }
 

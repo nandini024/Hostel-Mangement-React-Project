@@ -1,3 +1,4 @@
+
 import React from 'react';
 import './UpdateMess.css'; // 🧡 External styles
 
@@ -6,7 +7,7 @@ function UpdateMess() {
 
   const messData = {
     Monday: { breakfast: 'Idli & Sambar', lunch: 'Rice, Dal, Veg Curry', dinner: 'Chapati, Paneer' },
-    Tuesday: { breakfast: 'Dosa ', lunch: 'Veg Biryani, Raita', dinner: 'Paratha, Aloo Curry' },
+    Tuesday: { breakfast: 'Dosa & Chutney', lunch: 'Veg Biryani, Raita', dinner: 'Paratha, Aloo Curry' },
     Wednesday: { breakfast: 'Pongal & Vada', lunch: 'Rice, Sambar, Beans', dinner: 'Fried Rice, Manchurian' },
     Thursday: { breakfast: 'Upma & Banana', lunch: 'Pulao, Veg Kurma', dinner: 'Noodles, Gobi' },
     Friday: { breakfast: 'Poori & Kurma', lunch: 'Rice, Rasam, Bhindi', dinner: 'Chapati, Egg Curry' },

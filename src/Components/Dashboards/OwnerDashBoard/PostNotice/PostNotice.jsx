@@ -1,27 +1,48 @@
 import React, { useState } from 'react';
-
+import { db } from '../../../firebaseConfig/firebaseConfig';
+import {doc,updateDoc,arrayUnion} from "firebase/firestore"
+import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 function PostNotification({ onPost }) {
-  const [title, setTitle] = useState('');
-  const [message, setMessage] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!title.trim() || !message.trim()) {
-      alert('Please fill in both Title and Message!');
-      return;
-    }
-    
-    onPost({ title: title.trim(), message: message.trim() });
 
   
-    setTitle('');
-    setMessage('');
+  
+  // const [title, setTitle] = useState(''); 
+  const [notification, setNotification] = useState({ title:"",message:""
+
+  });
+
+//Taking Data FROM LOCAL STORAGE.....    
+
+    const loggedInOwnerData = JSON.parse(localStorage.getItem("loggedInOwner"));
+
+const navigate=useNavigate()
+ const handleNotificationSubmit = async (e) => {
+     e.preventDefault();
+ 
+     try {
+       const ownerRef = doc(db, "owners", loggedInOwnerData.user.displayName);
+       await updateDoc(ownerRef, { Notifications:notification });
+ 
+       toast.success("Notification addedsuccessfully!");
+       navigate("/ownerDashboard");
+     } catch (err) {
+       console.error(err);
+       toast.error("Failed to add  Notification.");
+     }
+  
+   
+    
+
+
+  
+   
   };
 
   return (
     <div className="container my-4" style={{ maxWidth: '600px' }}>
       <h3 className="mb-4 text-center">Post Notification</h3>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleNotificationSubmit}>
         <div className="mb-3">
           <label htmlFor="notificationTitle" className="form-label">
             Title
@@ -31,8 +52,9 @@ function PostNotification({ onPost }) {
             id="notificationTitle"
             className="form-control"
             placeholder="Enter notification title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            
+                       onChange={(e) => setNotification({...notification,title:e.target.value})}
+
           />
         </div>
 
@@ -45,8 +67,8 @@ function PostNotification({ onPost }) {
             className="form-control"
             rows="4"
             placeholder="Enter notification message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
+       
+            onChange={(e) => setNotification({...notification,message:e.target.value})}
           />
         </div>
 
@@ -54,6 +76,7 @@ function PostNotification({ onPost }) {
           Post Notification
         </button>
       </form>
+      <ToastContainer/>
     </div>
   );
 }

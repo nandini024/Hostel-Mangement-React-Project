@@ -22,7 +22,7 @@ function AddRoom() {
     images: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});   
 
   //SETTING IMAGE URL........!
 

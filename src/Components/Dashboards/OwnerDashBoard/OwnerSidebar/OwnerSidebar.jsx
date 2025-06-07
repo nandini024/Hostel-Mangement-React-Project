@@ -30,7 +30,12 @@ function OwnerSidebar() {
         </li>
         <li>
           <NavLink to="update_mess" activeclassname="active">
-            <FaUtensils /> Update Mess Menu
+            <FaUtensils /> Add Mess Menu
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="view_messmenu" activeclassname="active">
+            <FaUtensils /> Update / View Messmenu
           </NavLink>
         </li>
       </ul>

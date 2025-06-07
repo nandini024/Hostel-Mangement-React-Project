@@ -1,52 +1,62 @@
-
-import React from 'react';
-import './UpdateMess.css'; // 🧡 External styles
-
-function UpdateMess() {
-  const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
-  const messData = {
-    Monday: { breakfast: 'Idli & Sambar', lunch: 'Rice, Dal, Veg Curry', dinner: 'Chapati, Paneer' },
-    Tuesday: { breakfast: 'Dosa & Chutney', lunch: 'Veg Biryani, Raita', dinner: 'Paratha, Aloo Curry' },
-    Wednesday: { breakfast: 'Pongal & Vada', lunch: 'Rice, Sambar, Beans', dinner: 'Fried Rice, Manchurian' },
-    Thursday: { breakfast: 'Upma & Banana', lunch: 'Pulao, Veg Kurma', dinner: 'Noodles, Gobi' },
-    Friday: { breakfast: 'Poori & Kurma', lunch: 'Rice, Rasam, Bhindi', dinner: 'Chapati, Egg Curry' },
-    Saturday: { breakfast: 'Sandwich & Juice', lunch: 'Tomato Rice, Chips', dinner: 'Idiyappam, Stew' },
-    Sunday: { breakfast: 'Masala Dosa', lunch: 'Veg Thali Special', dinner: 'Parotta, Kurma' }
-  };
-
-  return (
-    <div className="container py-5">
-      <h2 className="text-center mb-4 fw-bold">🥗 Weekly Mess Menu</h2>
-
-      <div className="table-responsive">
-        <table className="table table-bordered table-hover mess-table">
-          <thead className="table-dark text-center">
-            <tr>
-              <th>Day</th>
-              <th>Breakfast</th>
-              <th>Lunch</th>
-              <th>Dinner</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {weekDays.map((day) => (
-              <tr key={day}>
-                <td className="fw-semibold">{day}</td>
-                <td>{messData[day].breakfast}</td>
-                <td>{messData[day].lunch}</td>
-                <td>{messData[day].dinner}</td>
-                <td>
-                  <button className="btn btn-sm btn-outline-primary">Edit</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
+.mess-form-container {
+  max-width: 600px;
+  margin: 30px auto;
+  background: #f0ede9;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
-export default UpdateMess;
+.mess-form-container h2 {
+  text-align: center;
+  color: #2980b9;
+  margin-bottom: 25px;
+}
+
+.mess-form .form-group {
+  margin-bottom: 18px;
+}
+
+.mess-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.mess-form input,
+.mess-form select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #2980b9;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.mess-form input:focus,
+.mess-form select:focus {
+  border-color: #2980b9;
+  outline: none;
+}
+
+.btn-submit {
+  width: 100%;
+  background-color:#2980b9;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-submit:hover {
+  background-color: #2980b9;
+}
+
+@media (max-width: 600px) {
+  .mess-form-container {
+    padding: 20px;
+  }
+}

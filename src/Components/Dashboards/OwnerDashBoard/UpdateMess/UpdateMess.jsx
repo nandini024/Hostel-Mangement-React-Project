@@ -1,49 +1,100 @@
-import React from 'react';
-import './UpdateMess.css'; // 🧡 External styles
+import React, { useState } from 'react';
+import './UpdateMess.css';
+import { db } from '../../../firebaseConfig/firebaseConfig';
+import {doc,updateDoc} from "firebase/firestore"
+import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from 'react-router-dom';
 
 function UpdateMess() {
-  const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-  const messData = {
-    Monday: { breakfast: 'Idli & Sambar', lunch: 'Rice, Dal, Veg Curry', dinner: 'Chapati, Paneer' },
-    Tuesday: { breakfast: 'Dosa ', lunch: 'Veg Biryani, Raita', dinner: 'Paratha, Aloo Curry' },
-    Wednesday: { breakfast: 'Pongal & Vada', lunch: 'Rice, Sambar, Beans', dinner: 'Fried Rice, Manchurian' },
-    Thursday: { breakfast: 'Upma & Banana', lunch: 'Pulao, Veg Kurma', dinner: 'Noodles, Gobi' },
-    Friday: { breakfast: 'Poori & Kurma', lunch: 'Rice, Rasam, Bhindi', dinner: 'Chapati, Egg Curry' },
-    Saturday: { breakfast: 'Sandwich & Juice', lunch: 'Tomato Rice, Chips', dinner: 'Idiyappam, Stew' },
-    Sunday: { breakfast: 'Masala Dosa', lunch: 'Veg Thali Special', dinner: 'Parotta, Kurma' }
-  };
 
+  //TAKING DATA FROM THE LOCAL STORAGE..................! 
+ const loggedInOwnerData = JSON.parse(localStorage.getItem("loggedInOwner"));
+ console.log(loggedInOwnerData)
+
+  const [menuData,setMenuData] = useState({
+    day: '',
+    breakfast: '',
+    lunch: '',
+    dinner: '',
+  });
+  
+
+  
+//HANDLE FUNCTIONSS...........
+const navigate=useNavigate()
+ const handleSubmit = async (e) => {
+       e.preventDefault();
+   
+       try {
+         const ownermessRef = doc(db, "owners", loggedInOwnerData.user.displayName);
+         await updateDoc(ownermessRef, { messmenu:menuData});
+   
+         toast.success("Menu  added successfully!");
+          setTimeout(() => {
+      navigate("/ownerDashboard");
+    }, 1500);
+        
+       } catch (err) {
+         console.error(err);
+         toast.error("Failed to add  Mess Menu");
+       }
+    
+     
+      
+  
+
+      }
   return (
-    <div className="container py-5">
-      <h2 className="text-center mb-4 fw-bold">🥗 Weekly Mess Menu</h2>
-
-      <div className="table-responsive">
-        <table className="table table-bordered table-hover mess-table">
-          <thead className="table-dark text-center">
-            <tr>
-              <th>Day</th>
-              <th>Breakfast</th>
-              <th>Lunch</th>
-              <th>Dinner</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {weekDays.map((day) => (
-              <tr key={day}>
-                <td className="fw-semibold">{day}</td>
-                <td>{messData[day].breakfast}</td>
-                <td>{messData[day].lunch}</td>
-                <td>{messData[day].dinner}</td>
-                <td>
-                  <button className="btn btn-sm btn-outline-primary">Edit</button>
-                </td>
-              </tr>
+    <div className="mess-form-container">
+      <h2>🍽️ Update Mess Menu</h2>
+      <form onSubmit={handleSubmit} className="mess-form">
+        <div className="form-group">
+          <label>Select Day</label>
+          <select name="day"   required   onChange={(e)=>setMenuData({...menuData, day:e.target.value})} >
+            <option value="">-- Choose a day --</option>
+            {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map(day => (
+              <option key={day} value={day}>{day}</option>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>Breakfast</label>
+          <input
+            type="text"
+            name="breakfast"
+            placeholder="e.g., Idli, Dosa"
+        
+            onChange={(e)=>setMenuData({...menuData, breakfast:e.target.value})}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Lunch</label>
+          <input
+            type="text"
+            name="lunch"
+            placeholder="e.g., Rice, Sambar"
+            
+            onChange={(e)=>setMenuData({...menuData,lunch:e.target.value})}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Dinner</label>
+          <input
+            type="text"
+            name="dinner"
+            placeholder="e.g., Chapati, Curry"
+            
+            onChange={(e)=>setMenuData({...menuData,dinner:e.target.value})}
+          />
+        </div>
+
+        <button type="submit" className="btn-submit">Update Menu</button>
+      </form>
+      <ToastContainer/>
     </div>
   );
 }

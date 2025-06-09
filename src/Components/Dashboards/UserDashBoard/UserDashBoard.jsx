@@ -1,12 +1,21 @@
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import UserSideBar from './UserSideBar/UserSideBar';
+import './UserDashboard.css';
 
-import React from 'react'
-
-function UserDashBoard() {
+function UserDashboard() {
   return (
-    <div>
-       Userdash Board...........
+    <div className="user-dashboard-container">
+      <div className="user-sidebar">
+        <UserSideBar />
+      </div>
+
+      <main className="user-main-content">
+        <h2>User Dashboard</h2>
+        <Outlet />
+      </main>
     </div>
-  )
+  );
 }
 
-export default UserDashBoard
+export default UserDashboard;

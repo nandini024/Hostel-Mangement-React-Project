@@ -1,0 +1,86 @@
+/* ViewRooms.css */
+.rooms-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  background: linear-gradient(to right, #dfe9f3, #ffffff);
+  font-family: 'Poppins', sans-serif;
+}
+
+.room-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.room-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+}
+
+.room-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 2px solid #f1f1f1;
+}
+
+.room-card h3 {
+  margin: 1rem;
+  font-size: 1.6rem;
+  color: #2c3e50;
+  border-bottom: 1px solid #ecf0f1;
+  padding-bottom: 0.5rem;
+}
+
+.room-card p {
+  margin: 0.3rem 1rem;
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.room-card button {
+  margin: 1rem;
+  padding: 0.7rem 1.5rem;
+  background: linear-gradient(to right, #1d976c, #93f9b9);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+}
+
+.room-card button:hover {
+  background: linear-gradient(to right, #93f9b9, #1d976c);
+  transform: scale(1.05);
+}
+
+@media screen and (max-width: 768px) {
+  .rooms-container {
+    padding: 1rem;
+    gap: 1.2rem;
+  }
+
+  .room-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .room-card p {
+    font-size: 0.9rem;
+  }
+
+  .room-card button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1.2rem;
+  }
+}

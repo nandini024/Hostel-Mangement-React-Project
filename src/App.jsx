@@ -18,6 +18,7 @@ import ViewRooms from './Components/Dashboards/OwnerDashBoard/ViewRooms/ViewRoom
 import ViewMess from './Components/Dashboards/OwnerDashBoard/UpdateMess/ViewMess/ViewMess'
 import UserViewRooms from './Components/Dashboards/UserDashBoard/UserViewRooms/UserViewRooms'
 import UserViewNotices from './Components/Dashboards/UserDashBoard/UserViewNotices/UserViewNotices'
+import UserViewMessMenu from './Components/Dashboards/UserDashBoard/UserViewMessMenu/UserViewMessMenu'
 
 
 const App = () => {
@@ -42,7 +43,7 @@ const App = () => {
       </Route>
       <Route path='/userDashboard' element={<UserDashBoard/>}>
        <Route path='user_view_rooms' element={<UserViewRooms/>}/>
-      <Route path='user_view_messmenu' element={<ViewMess/>}/>
+      <Route path='user_view_messmenu' element={<UserViewMessMenu/>}/>
       <Route path='user_view_notice' element={<UserViewNotices/>}/>
       {/* <Route path='view_rooms' element={<ViewRooms/>}/> */}
 

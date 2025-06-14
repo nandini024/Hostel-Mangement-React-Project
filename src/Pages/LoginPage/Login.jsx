@@ -38,16 +38,19 @@ function Login() {
       console.log(ownerData);
       // console.log((userData.data()));
       let loggedUserData;
+      console.log(ownerData.exists())
+      console.log(userData .exists())
       if (ownerData.exists()) {
         loggedUserData = ownerData.data();
         localStorage.setItem("loggedInOwner", JSON.stringify(userLogin));
         console.log(loggedUserData);
+        navigate(`/ownerDashboard`);
+        
       }else if(userData.exists()){
         loggedUserData = userData.data();
         localStorage.setItem("loggedInUser", JSON.stringify(userLogin));
-
+        navigate(`/userDashboard`);
       }
-      navigate(`/${loggedUserData.role}Dashboard`);
     } catch (err) {
       console.log(err);
     }

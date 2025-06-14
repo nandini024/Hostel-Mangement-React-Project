@@ -19,6 +19,7 @@ import ViewMess from './Components/Dashboards/OwnerDashBoard/UpdateMess/ViewMess
 import UserViewRooms from './Components/Dashboards/UserDashBoard/UserViewRooms/UserViewRooms'
 import UserViewNotices from './Components/Dashboards/UserDashBoard/UserViewNotices/UserViewNotices'
 import UserViewMessMenu from './Components/Dashboards/UserDashBoard/UserViewMessMenu/UserViewMessMenu'
+import OwnerBooking from './Components/Dashboards/OwnerDashBoard/OwnerBookings/OwnerBooking'
 
 
 const App = () => {
@@ -40,11 +41,14 @@ const App = () => {
       <Route path='view_messmenu' element={<ViewMess/>}/>
       <Route path='post_notice' element={<PostNotice/>}/>
       <Route path='view_rooms' element={<ViewRooms/>}/>
+      <Route path='owner_booking' element={<OwnerBooking/>}/>
       </Route>
       <Route path='/userDashboard' element={<UserDashBoard/>}>
        <Route path='user_view_rooms' element={<UserViewRooms/>}/>
       <Route path='user_view_messmenu' element={<UserViewMessMenu/>}/>
       <Route path='user_view_notice' element={<UserViewNotices/>}/>
+      <Route path='user_view_notice' element={<UserViewNotices/>}/>
+      
       {/* <Route path='view_rooms' element={<ViewRooms/>}/> */}
 
       </Route>

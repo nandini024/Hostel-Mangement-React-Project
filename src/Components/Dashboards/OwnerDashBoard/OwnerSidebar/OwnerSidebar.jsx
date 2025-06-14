@@ -38,6 +38,11 @@ function OwnerSidebar() {
             📋 Update / View Messmenu
           </NavLink>
         </li>
+        <li>
+          <NavLink to="owner_booking" className={({ isActive }) => isActive ? 'active' : ''}>
+            📋 Views Bookings
+          </NavLink>
+        </li>
       </ul>
     </div>
   );

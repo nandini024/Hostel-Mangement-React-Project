@@ -91,37 +91,34 @@ import { CgProfile } from "react-icons/cg";
 import { FaHome, FaBed, FaUserAlt, FaInfoCircle } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "./NavbarComp.css";
-import { getDoc ,doc} from "firebase/firestore";
+import { getDoc, doc } from "firebase/firestore";
 import { db } from "../firebaseConfig/firebaseConfig";
 
-
 function NavbarComp() {
-  const [role , setRole]=useState("")
-    const [loading, setLoading] = useState(true); // To wait until role is fetched
+  const [role, setRole] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
   const loggedinUser =
     JSON.parse(localStorage.getItem("loggedInUser")) ||
     JSON.parse(localStorage.getItem("loggedInOwner"));
-  console.log(loggedinUser);
-   useEffect(() => {
+  // console.log(loggedinUser.user.displayName);
+  console.log(loggedinUser)
+  useEffect(() => {
+    console.log("Role state updated:", role);
     if (loggedinUser) {
       roleBasedDashBoard();
     } else {
       setLoading(false);
     }
-  }, []);
-
-  useEffect(() => {
-  console.log('Role state updated:', role);
-}, [role]);
+  }, [loggedinUser]);
 
 
   async function roleBasedDashBoard() {
     try {
       const displayName = loggedinUser?.user?.displayName;
-      console.log(displayName,"display.........");
-      
+      console.log(displayName, "display.........");
+
       const ownerRef = doc(db, "owners", displayName);
       const userRef = doc(db, "users", displayName);
 
@@ -129,14 +126,16 @@ function NavbarComp() {
       const userSnap = await getDoc(userRef);
 
       if (ownerSnap.exists()) {
-  const data = ownerSnap.data();
-  setRole(data.role || "owner");
-} else if (userSnap.exists()) {
-  const data = userSnap.data();
-  setRole(data.role || "user");
-} else {
-  console.warn("User not found in owners or users.");
-}
+        const data = ownerSnap.data();  
+        console.log("hi", data.role)
+        setRole("owner");
+      } else if (userSnap.exists()) {
+        const data = userSnap.data();
+        setRole("user");
+        console.log("bye", data.role)
+      } else {
+        console.warn("User not found in owners or users.");
+      }
     } catch (err) {
       console.error("Error fetching role:", err);
     } finally {
@@ -150,13 +149,15 @@ function NavbarComp() {
       await signOut(auth);
       localStorage.removeItem("loggedInUser");
       localStorage.removeItem("loggedInOwner");
-      
+
       navigate("/login");
       toast.success("Successfully Logged Out");
     } catch (err) {
       console.log(err);
     }
   };
+console.log(role)
+
 
   return (
     <Navbar expand="lg" className="custom-navbar shadow-sm" sticky="top">
@@ -173,9 +174,11 @@ function NavbarComp() {
             <Link to="/about" className="nav-link">
               <FaInfoCircle /> About
             </Link>
-            <Link to="/rooms" className="nav-link">
-              <FaBed /> Rooms
-            </Link>
+            {loggedinUser && (
+              <Link to="/userDashboard/user_view_rooms" className="nav-link">
+                <FaBed /> Rooms
+              </Link>
+            )}
             <Link to="/contact" className="nav-link">
               <FaUserAlt /> Contact
             </Link>
@@ -188,12 +191,10 @@ function NavbarComp() {
 
                 <Dropdown.Menu className="dropdown-menu-custom">
                   <Dropdown.Item as={Link} to="/profile">
-                    👤 Profile
+                    👤{loggedinUser.user.displayName} profile
                   </Dropdown.Item>
                   {/* // navigate(`/${loggedUserData.role}Dashboard`); */}
-                  <Dropdown.Item
-                    as={Link} to={`/${role}Dashboard`}
-                  >
+                  <Dropdown.Item as={Link} to={ role==="owner"? "/ownerDashboard": "/userDashboard"}>
                     📊 Dashboard
                   </Dropdown.Item>
 

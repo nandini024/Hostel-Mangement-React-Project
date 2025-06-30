@@ -2,11 +2,11 @@
 import React from 'react'
 import NavbarComp from './Components/Navbar/NavbarComp'
 import { Route, Routes } from 'react-router-dom'
-import Home from './Pages/Home/home'
-import Rooms from './Pages/Rooms/rooms'
+import Home from './Pages/Home/Home'
+import Rooms from './Pages/Rooms/Rooms'
 import Contact from './Pages/Contact/Contact'
-import About from './Pages/About/about'
-import Login from './Pages/LoginPage/login'
+import About from "./Pages/About/About"
+import Login from './Pages/LoginPage/Login'
 import SignupPage from './Pages/SignupPage/SignupPage'
 import OwnerDashBoard from './Components/Dashboards/OwnerDashBoard/OwnerDashBoard'
 import UserDashBoard from './Components/Dashboards/UserDashBoard/UserDashBoard'
@@ -28,6 +28,7 @@ const App = () => {
       
     <NavbarComp/>
     <Routes>
+       <Route path="/" element={<Home />} />
       <Route path='/home' element={<Home/>}/>
        <Route path='/about' element={<About/>}/>
        <Route path='/contact' element={<Contact/>}/>
@@ -55,7 +56,7 @@ const App = () => {
 
       
     </Routes>
-    <Footer/>
+    {/* <Footer/> */}
 
     </div>
   )

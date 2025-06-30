@@ -1,143 +1,111 @@
-
-
 /* AddRoom.css */
 
 .add-room-container {
   max-width: 600px;
-  margin: 40px auto;
-  background: white;
-  padding: 30px 25px;
-  border-radius: 10px;
+  margin: 30px auto;
+  padding: 25px;
+  background: linear-gradient(to bottom right, #ffffff, #f2f6fc);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
+  border-radius: 15px;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-h1 {
+.add-room-container h1 {
   text-align: center;
-  margin-bottom: 25px;
   color: #2c3e50;
+  margin-bottom: 10px;
 }
 
-.success-msg {
-  background-color: #d4edda;
-  border-left: 5px solid #28a745;
-  padding: 10px 15px;
-  margin-bottom: 20px;
-  color: #155724;
-  border-radius: 4px;
-  font-weight: 600;
-  text-align: center;
+.add-room-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 .add-room-form label {
-  display: block;
-  margin-bottom: 18px;
-  font-weight: 600;
-  font-size: 14px;
-  color: #444;
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  color: #34495e;
 }
 
-input[type='text'],
-input[type='number'],
-select,
-textarea {
-  width: 100%;
+.add-room-form input,
+.add-room-form select,
+.add-room-form textarea {
   padding: 10px 12px;
   margin-top: 6px;
-  border: 1.8px solid #ccc;
-  border-radius: 5px;
-  font-size: 14px;
-  font-family: inherit;
-  transition: border-color 0.3s ease;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: 0.3s ease;
 }
 
-input[type='text']:focus,
-input[type='number']:focus,
-select:focus,
-textarea:focus {
-  border-color: #3a86ff;
+.add-room-form input:focus,
+.add-room-form select:focus,
+.add-room-form textarea:focus {
+  border-color: #2980b9;
   outline: none;
-  box-shadow: 0 0 5px rgba(58, 134, 255, 0.5);
-}
-
-textarea {
-  resize: vertical;
-}
-
-.error-msg {
-  margin-top: 6px;
-  font-size: 12px;
-  color: #e74c3c;
-  font-weight: 600;
+  box-shadow: 0 0 5px rgba(41, 128, 185, 0.3);
 }
 
 .required {
-  color: #e74c3c;
+  color: red;
   margin-left: 4px;
 }
 
-fieldset.amenities-fieldset {
-  border: 1.5px solid #ddd;
-  border-radius: 6px;
-  padding: 15px 20px 10px;
-  margin-bottom: 20px;
+.amenities-fieldset {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }
 
-fieldset.amenities-fieldset legend {
-  font-weight: 700;
-  font-size: 15px;
-  color: #555;
-  padding: 0 6px;
+.amenities-fieldset legend {
+  font-weight: bold;
+  color: #2c3e50;
 }
 
-.checkbox-label {
-  display: inline-block;
-  margin-right: 20px;
-  font-weight: 500;
-  font-size: 14px;
-  user-select: none;
-}
-
-.file-input-label {
-  font-weight: 600;
-  font-size: 14px;
-  color: #444;
-  margin-bottom: 20px;
+.amenities-fieldset label {
   display: block;
-}
-
-input[type='file'] {
-  margin-top: 6px;
+  margin: 8px 0;
+  font-weight: normal;
 }
 
 .submit-btn {
-  width: 100%;
-  background-color: #3a86ff;
+  padding: 12px;
+  background: #2980b9;
   color: white;
-  padding: 12px 0;
-  border: none;
-  border-radius: 7px;
-  font-weight: 700;
+  font-weight: bold;
   font-size: 16px;
+  border: none;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s ease;
 }
 
 .submit-btn:hover {
-  background-color: #265eec;
+  background: #1f6391;
 }
 
-/* Responsive */
+.error-msg {
+  color: red;
+  font-size: 13px;
+  margin-top: 4px;
+}
 
-@media (max-width: 480px) {
+/* Responsive Styling */
+@media (max-width: 768px) {
   .add-room-container {
-    margin: 20px 15px;
-    padding: 20px 15px;
+    margin: 20px;
+    padding: 20px;
   }
 
-  .checkbox-label {
-    margin-right: 12px;
-    font-size: 13px;
+  .submit-btn {
+    font-size: 15px;
+  }
+
+  .add-room-form {
+    gap: 15px;
   }
 }

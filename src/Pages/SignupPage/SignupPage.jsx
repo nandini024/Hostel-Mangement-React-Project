@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, Container, Card } from "react-bootstrap";
+import { Form, Button, Container, Card, Spinner } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { MdEmail } from "react-icons/md";
 import { FaUser, FaLock } from "react-icons/fa";
@@ -8,7 +8,7 @@ import { db } from "../../Components/firebaseConfig/firebaseConfig";
 import { authentication } from "../../Components/firebaseConfig/firebaseConfig";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
-import { toast } from "react-toastify";
+import { toast ,ToastContainer} from "react-toastify";
 
 function Signup() {
   const [signupDetails, setSignupDetails] = useState({
@@ -18,12 +18,12 @@ function Signup() {
     role: ""
   });
 
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("clicked");
-    console.log(signupDetails);
+    setIsLoading(true);
 
     try {
       const userRegistration = await createUserWithEmailAndPassword(
@@ -31,8 +31,6 @@ function Signup() {
         signupDetails.email,
         signupDetails.password
       );
-
-      console.log(userRegistration);
 
       await updateProfile(userRegistration.user, {
         displayName: signupDetails.name,
@@ -45,15 +43,16 @@ function Signup() {
         id: userRegistration.user.uid,
       });
 
-      toast.success("✅ Signup Successful! Redirecting to Login Page...", {
-        position: "top-center",
+      toast.success("Signup Successful! Redirecting to Login Page...", {
+         position: "top-right",
+        autoClose: 3000
       });
 
       setTimeout(() => {
         navigate("/login");
-      }, 2000); // Delay to let toast show
+      }, 3000);
+
     } catch (error) {
-      console.log("Signup Error:", error);
       if (error.code === "auth/email-already-in-use") {
         toast.error("❗ Email already in use", { position: "top-center" });
       } else if (error.code === "auth/weak-password") {
@@ -65,6 +64,8 @@ function Signup() {
           position: "top-center",
         });
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -137,8 +138,20 @@ function Signup() {
               </Form.Select>
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="w-100 signup-btn">
-              Sign Up
+            <Button
+              variant="primary"
+              type="submit"
+              className="w-100 signup-btn"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <Spinner animation="border" size="sm" className="me-2" />
+                  Signing Up...
+                </>
+              ) : (
+                "Sign Up"
+              )}
             </Button>
           </Form>
 
@@ -150,6 +163,7 @@ function Signup() {
           </p>
         </Card>
       </Container>
+      <ToastContainer/>
     </div>
   );
 }

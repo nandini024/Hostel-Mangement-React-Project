@@ -2,22 +2,21 @@ import React, { useState } from "react";
 import { Form, Button, Container, Card } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { MdEmail } from "react-icons/md";
-
-
-import { FaUser, FaLock } from "react-icons/fa";
-import { signInWithEmailAndPassword, updateProfile } from "firebase/auth";
-import {
-  authentication,
-  db,
-} from "../../Components/firebaseConfig/firebaseConfig";
+import { FaLock } from "react-icons/fa";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { authentication, db } from "../../Components/firebaseConfig/firebaseConfig";
 import { getDoc, doc } from "firebase/firestore";
+import { toast ,ToastContainer} from "react-toastify";
 import "./Login.css";
+
 function Login() {
   const [loginDetails, setLoginDetails] = useState({
     email: "",
-    password: " ",
+    password: "",
   });
+
   const navigate = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -26,45 +25,58 @@ function Login() {
         loginDetails.email,
         loginDetails.password
       );
-      
 
       const displayName = userLogin.user.displayName;
 
-      console.log(userLogin);
-      const ownerData = await getDoc(
-        doc(db, "owners", userLogin.user.displayName)
-      );
-      const userData=await getDoc(doc(db,"users",userLogin.user.displayName));
-      console.log(ownerData);
-      // console.log((userData.data()));
+      // Check both owners and users
+      const ownerData = await getDoc(doc(db, "owners", displayName));
+      const userData = await getDoc(doc(db, "users", displayName));
+
       let loggedUserData;
-      console.log(ownerData.exists())
-      console.log(userData .exists())
+
       if (ownerData.exists()) {
         loggedUserData = ownerData.data();
         localStorage.setItem("loggedInOwner", JSON.stringify(userLogin));
-        console.log(loggedUserData);
-        navigate(`/ownerDashboard`);
-        
-      }else if(userData.exists()){
+        toast.success(" Login successful as Owner!", {
+          position: "top-right",
+          autoClose: 2000,
+        });
+        setTimeout(() => navigate("/ownerDashboard"), 2000);
+      } else if (userData.exists()) {
         loggedUserData = userData.data();
         localStorage.setItem("loggedInUser", JSON.stringify(userLogin));
-        navigate(`/userDashboard`);
+        toast.success("Login successful as User!", {
+          position: "top-right",
+          autoClose: 2000,
+        });
+        setTimeout(() => navigate("/userDashboard"), 2000);
+      } else {
+        toast.error("❗ No user record found in Firestore", {
+          position: "top-center",
+        });
       }
+
     } catch (err) {
-      console.log(err);
+      if (err.code === "auth/wrong-password") {
+        toast.error("❗ Incorrect password", { position: "top-center" });
+      } else if (err.code === "auth/user-not-found") {
+        toast.error("❗ User not found", { position: "top-center" });
+      } else {
+        toast.error("❗ Login failed. Try again.", { position: "top-center" });
+      }
+      console.error("Login Error:", err);
     }
   };
+
   return (
     <div className="login-bg">
       <Container className="d-flex justify-content-center align-items-center min-vh-95">
         <Card className="login-card shadow-lg">
-          <h2 className="text-center mb-4 login-title">Login </h2>
+          <h2 className="text-center mb-4 login-title">Login</h2>
 
           <Form onSubmit={handleLogin}>
             <Form.Group className="mb-3" controlId="formEmail">
               <Form.Label>
-                {" "}
                 <MdEmail className="icon" /> Email address
               </Form.Label>
               <Form.Control
@@ -106,6 +118,7 @@ function Login() {
           </p>
         </Card>
       </Container>
+      <ToastContainer/>
     </div>
   );
 }

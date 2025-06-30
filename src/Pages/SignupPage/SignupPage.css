@@ -1,35 +1,46 @@
-
 /* Background gradient */
 .signup-bg {
   background: linear-gradient(to right, #e3ffe7, #d9e7ff);
-  min-height: 90vh;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
-/* Glassy card */
+/* Glassy animated card */
 .signup-card {
-    margin-top: 40px;
   width: 100%;
   max-width: 420px;
   backdrop-filter: blur(25px);
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 20px;
-  padding: 30px;
-  animation: floatIn 0.9s ease;
+  padding: 30px 25px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  animation: floatIn 0.8s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 /* Title */
 .signup-title {
   font-family: "Poppins", sans-serif;
   font-weight: 600;
-  color: #333;
+  color: #2c3e50;
 }
 
 /* Input styling */
 .signup-input {
   border-radius: 12px;
   border: 1px solid #ccc;
-  padding: 10px;
+  padding: 10px 14px;
+  font-size: 15px;
+  transition: 0.3s ease;
+}
+
+.signup-input:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.25);
 }
 
 /* Button */
@@ -38,6 +49,8 @@
   border: none;
   border-radius: 12px;
   font-weight: bold;
+  font-size: 16px;
+  padding: 10px 0;
   transition: background 0.3s ease;
 }
 
@@ -45,12 +58,13 @@
   background-color: #218838;
 }
 
-/* Footer */
+/* Footer text */
 .signup-footer {
   font-size: 14px;
   color: #333;
 }
 
+/* Login link */
 .login-link {
   color: #007bff;
   font-weight: 600;
@@ -59,6 +73,12 @@
 
 .login-link:hover {
   text-decoration: underline;
+}
+
+/* Icons inside label */
+.icon {
+  margin-right: 8px;
+  color: #0e110f;
 }
 
 /* Animation */
@@ -73,10 +93,22 @@
   }
 }
 
-/* Responsive Padding */
+/* Responsive Design */
 @media (max-width: 576px) {
   .signup-card {
-    padding: 20px;
+    padding: 20px 15px;
     border-radius: 15px;
+  }
+
+  .signup-title {
+    font-size: 22px;
+  }
+
+  .signup-input {
+    font-size: 14px;
+  }
+
+  .signup-btn {
+    font-size: 15px;
   }
 }

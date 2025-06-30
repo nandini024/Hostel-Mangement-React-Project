@@ -45,42 +45,54 @@ function ViewRooms() {
   }
 
   return (
-    <div className="container py-5">
-      <h2 className="text-center mb-4 fw-bold">🏨 Your Room Listings</h2>
+   <div className="container py-5">
+  <h2 className="text-center mb-4 fw-bold gradient-text">🏨 Your Room Listings</h2>
 
-      {roomsData.length === 0 ? (
-        <p className="text-center text-muted">No rooms found.</p>
-      ) : (
-        <div className="row g-4">
-          {roomsData.map((p, index) => (
-            <div key={index} className="col-md-6 col-lg-4">
-              <div className="room-card shadow rounded p-3">
-                <img
-                  src={p.images}
-                  alt="Room"
-                  className="img-fluid rounded room-image mb-3"
-                />
-                <h5 className="mb-1"><strong>Room No:</strong> {p.roomNumber}</h5>
-                <p className="mb-1"><strong>Type:</strong> {p.roomType}</p>
-                <p className="mb-1"><strong>Capacity:</strong> {p.capacity}</p>
-                <p className="mb-1"><strong>Price:</strong> ₹{p.price}</p>
-                <p className="mb-1"><strong>Status:</strong> {p.availability}</p>
-                <p className="mb-2"><strong>Description:</strong> {p.description}</p>
+  {roomsData.length === 0 ? (
+    <p className="text-center text-muted">No rooms found.</p>
+  ) : (
+    <div className="room-grid">
+      {roomsData.map((p, index) => (
+        <div key={index} className="room-card">
+          <img src={p.images} alt="Room" className="room-image" />
 
-                <div className="d-flex justify-content-between">
-                  <button className="btn btn-danger btn-sm w-45" onClick={handleDelete}>
-                    <FaTrashAlt className="me-1" /> Delete
-                  </button>
-                  <button className="btn btn-primary btn-sm w-45" onClick={handleEdit}>
-                    <FaEdit className="me-1" /> Edit
-                  </button>
-                </div>
-              </div>
+          <div className="room-details">
+            <h4>Room No: <span>{p.roomNumber}</span></h4>
+            <p>🛏 Type: <strong>{p.roomType}</strong></p>
+            <p>💸 Price: <strong>₹{p.price}</strong></p>
+            <p>🧍‍♂️ Total Beds: <strong>{p.totalBeds}</strong></p>
+            <p>✅ Occupied: <strong>{p.occupiedBeds}</strong></p>
+
+            <p className="desc">📝 {p.description}</p>
+
+            <div className="amenities">
+              {p.amenities?.map((a, i) => (
+                <span key={i} className="amenity-tag">{a}</span>
+              ))}
             </div>
-          ))}
+
+            <p>
+              Status:
+              <span className={`status-badge ${p.availability === "Available" ? "green" : "red"}`}>
+                {p.availability}
+              </span>
+            </p>
+
+            <div className="action-buttons">
+              <button className="btn edit" onClick={handleEdit}>
+                <FaEdit /> Edit
+              </button>
+              <button className="btn delete" onClick={handleDelete}>
+                <FaTrashAlt /> Delete
+              </button>
+            </div>
+          </div>
         </div>
-      )}
+      ))}
     </div>
+  )}
+</div>
+
   );
 }
 

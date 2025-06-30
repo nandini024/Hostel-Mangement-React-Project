@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import OwnerSidebar from './OwnerSidebar/OwnerSidebar';
-import './OwnerDashboard.css'; 
+import './OwnerDashBoard.css'; 
 
 function OwnerDashBoard() {
   return (

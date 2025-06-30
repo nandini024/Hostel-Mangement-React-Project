@@ -22,7 +22,7 @@ function HostelCarousel() {
             className="d-block w-100"
             src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
             alt="Luxury Dorm Room"
-            alt="Modern Hallway"
+           
             style={{ maxHeight: "500px", objectFit: "cover" }}
           />
           <Carousel.Caption>
@@ -47,7 +47,7 @@ function HostelCarousel() {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/11/03/e2/df/common-area.jpg?w=1000&h=-1&s=1"
+            src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/11/03/e2/df/common-area.jpg?w=1000&h=-1&s=1" 
             style={{ maxHeight: "500px", objectFit: "cover" }}
           />
           <Carousel.Caption>

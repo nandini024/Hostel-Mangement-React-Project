@@ -22,7 +22,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import UserSideBar from './UserSideBar/UserSideBar';
-import './UserDashboard.css';
+import './UserDashBoard.css';
 
 function UserDashboard() {
   return (

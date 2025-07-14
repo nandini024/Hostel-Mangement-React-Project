@@ -6,30 +6,30 @@ import './UserViewNotices.css';
 function UserViewNotices() {
   const [userNotification, setUserNotification] = useState([]);
   const [loading, setLoading] = useState(true);
-useEffect(() => {
-  async function fetchNotifications() {
-    try {
-      const collectionData = await getDocs(collection(db, "owners"));
-      let userNotificationData = [];
+// useEffect(() => {
+//   async function fetchNotifications() {
+//     try {
+//       const collectionData = await getDocs(collection(db, "owners"));
+//       let userNotificationData = [];
 
-      collectionData.docs.forEach((doc) => {
-        const userNotificationDetails = doc.data().Notifications;
+//       collectionData.docs.forEach((doc) => {
+//         const userNotificationDetails = doc.data().Notifications;
 
-        if (userNotificationDetails) {
-          userNotificationData.push(userNotificationDetails);
-        }
-      });
+//         if (userNotificationDetails) {
+//           userNotificationData.push(userNotificationDetails);
+//         }
+//       });
 
-      setUserNotification(userNotificationData);
-      setLoading(false);
-    } catch (err) {
-      console.log("Error fetching notices:", err);
-      setLoading(false);
-    }
-  }
+//       setUserNotification(userNotificationData);
+//       setLoading(false);
+//     } catch (err) {
+//       console.log("Error fetching notices:", err);
+//       setLoading(false);
+//     }
+//   }
 
-  fetchNotifications();
-}, []);
+//   fetchNotifications();
+// }, []);
 
   // useEffect(() => {
   //   async function fetchNotifications() {
@@ -56,6 +56,31 @@ useEffect(() => {
 
   //   fetchNotifications();
   // }, []);
+
+  useEffect(() => {
+  async function fetchNotifications() {
+    try {
+      const collectionData = await getDocs(collection(db, "owners"));
+      let userNotificationData = [];
+
+      collectionData.docs.forEach((doc) => {
+        const notifications = doc.data().Notifications;
+
+        if (Array.isArray(notifications) && notifications.length > 0) {
+          userNotificationData = [...userNotificationData, ...notifications]; // flatten
+        }
+      });
+
+      setUserNotification(userNotificationData);
+      setLoading(false);
+    } catch (err) {
+      console.log("Error fetching notices:", err);
+      setLoading(false);
+    }
+  }
+
+  fetchNotifications();
+}, []);
 
   return (
     <div className="notices-container">

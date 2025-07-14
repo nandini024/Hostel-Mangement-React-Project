@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../../../firebaseConfig/firebaseConfig';
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs,updateDoc,doc } from "firebase/firestore";
 import { Card, Container, Row, Col, Spinner } from 'react-bootstrap';
 import "./OwnerBookings.css";
 
@@ -17,14 +17,29 @@ function OwnerBooking() {
   });
 };
 
-const handleCancel = async (bookingId, userId) => {
-  await updateDoc(doc(db, "bookings", bookingId), {
-    status: "cancelled"
-  });
 
-  await updateDoc(doc(db, "users", userId), {
-    bookingStatus: "cancelled"
-  });
+const handleDelete = async (bookingroomId) => {
+  console.log(bookingroomId)
+  try {
+    console.log(viewBookedRoomData);
+    
+    const viewBookedRoomDataInfo=viewBookedRoomData.filter((r,index)=>index!=bookingroomId)
+    console.log(viewBookedRoomDataInfo);
+        setBookedRoomsData(viewBookedRoomDataInfo);
+
+
+    
+  } catch (error) {
+    console.log(error)
+    
+  }
+//   await updateDoc(doc(db, "bookings", bookingId), {
+//     status: "cancelled"
+//   });
+
+//   await updateDoc(doc(db, "users", userId), {
+//     bookingStatus: "cancelled"
+//   });
 };
 
 
@@ -100,17 +115,12 @@ const handleCancel = async (bookingId, userId) => {
   </Card.Text>
 
   <div className="d-flex justify-content-between mt-3">
-    <button
-      className="btn btn-success btn-sm"
-      onClick={handleConfirm }
-    >
-      Confirm
-    </button>
+    
     <button
       className="btn btn-danger btn-sm"
-      onClick={handleCancel}
+      onClick={()=>handleDelete(index)}
     >
-      Cancel
+      delete
     </button>
   </div>
 </Card.Body>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './UpdateMess.css';
 import { db } from '../../../firebaseConfig/firebaseConfig';
-import {doc,updateDoc} from "firebase/firestore"
+import {doc,updateDoc,getDoc} from "firebase/firestore"
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
 
@@ -28,7 +28,18 @@ const navigate=useNavigate()
    
        try {
          const ownermessRef = doc(db, "owners", loggedInOwnerData.user.displayName);
-         await updateDoc(ownermessRef, { messmenu:menuData});
+         const docSnap = await getDoc(ownermessRef);
+        let existingMenu = []; 
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        existingMenu = Array.isArray(data.messmenu) ? data.messmenu : [];
+      }
+
+      // Append new data to existing messmenu
+      const updatedMenu = [...existingMenu, menuData];
+         
+         await updateDoc(ownermessRef, { messmenu:updatedMenu});
    
          toast.success("Menu  added successfully!");
           setTimeout(() => {

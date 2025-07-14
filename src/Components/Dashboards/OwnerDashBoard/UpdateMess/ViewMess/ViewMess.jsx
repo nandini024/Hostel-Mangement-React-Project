@@ -55,10 +55,10 @@ function ViewMess() {
   };
 
   // EDITT 
-  const handleEdit = (dayData, index) => {
-    localStorage.setItem("editMessDay", JSON.stringify({ ...dayData, index }));
-    navigate("/edit-mess-day"); 
-  };
+  // const handleEdit = (dayData, index) => {
+  //   localStorage.setItem("editMessDay", JSON.stringify({ ...dayData, index }));
+  //   navigate("/edit-mess-day"); 
+  // };
 
   if (loading) {
     return <h2 className="text-center py-5">Loading... please wait...</h2>;
@@ -90,12 +90,12 @@ function ViewMess() {
                   <td>{menu.lunch}</td>
                   <td>{menu.dinner}</td>
                   <td>
-                    <button
+                    {/* <button
                       className="btn btn-sm  btn-gradient  me-2"
                       onClick={() => handleEdit(menu, index)}
                     >
                       Edit
-                    </button>
+                    </button> */}
                     <button
                       className="btn  btn-gradient btn-sm btn-danger"
                       onClick={() => handleDelete(index)}

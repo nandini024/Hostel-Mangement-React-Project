@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { db } from '../../../firebaseConfig/firebaseConfig';
-import {doc,updateDoc,arrayUnion} from "firebase/firestore"
+import {doc,updateDoc,arrayUnion, getDoc} from "firebase/firestore"
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 function PostNotification({ onPost }) {
@@ -22,7 +22,16 @@ const navigate=useNavigate()
  
      try {
        const ownerRef = doc(db, "owners", loggedInOwnerData.user.displayName);
-       await updateDoc(ownerRef, { Notifications:notification });
+       const TotalData= await getDoc(ownerRef)
+       let existingnotices=[]
+       if(TotalData.exists())
+       {
+        const data=(await TotalData).data()
+        existingnotices=Array.isArray(data.Notifications)? data.Notifications:[]
+       }
+       const updatedNotices=[...existingnotices,notification]
+       await updateDoc(ownerRef, { Notifications:updatedNotices });
+       
  
        toast.success("Notification addedsuccessfully!");
        navigate("/ownerDashboard");

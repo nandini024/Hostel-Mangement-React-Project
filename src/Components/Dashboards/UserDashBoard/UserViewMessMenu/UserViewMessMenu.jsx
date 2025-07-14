@@ -7,24 +7,35 @@ function UserViewMessMenu() {
   const [userMess, setUserMess] = useState([]);
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
     async function fetchUserMessData() {
       try {
         const collectionData = await getDocs(collection(db, 'owners'));
+        console.log(collectionData);
+        
         let allMenus = [];
-          let messDetails;
+        //  / let messDetails;
         collectionData.docs.forEach((doc) => {
-           messDetails = doc.data().messmenu || {} ;
+        const   messDetails = doc.data().messmenu ;
+           if (Array.isArray(messDetails) && messDetails.length > 0) {
+          allMenus = [...allMenus, ...messDetails]; // Flattened
+        }
            console.log(messDetails);
            allMenus.push(messDetails)
            
           
         });
+         
 
-        setUserMess(allMenus);
-        console.log(allMenus);
+
+        // setUserMess(allMenus);
+        // console.log(allMenus);
         
-        setLoading(false);
+        // setLoading(false);        
+         // ✅ Filter out any undefined/null
+      setUserMess(allMenus.filter(Boolean));
+      setLoading(false)
       } catch (err) {
         console.error('Error fetching mess menu:', err);
         setLoading(false);
@@ -33,6 +44,7 @@ function UserViewMessMenu() {
 
     fetchUserMessData();
   }, []);
+  console.log(userMess);
 
   return (
     <div className="user-mess-container">
@@ -54,14 +66,18 @@ function UserViewMessMenu() {
               </tr>
             </thead>
             <tbody>
-              {userMess.map((menu, index) => (
+              {userMess.map((menu, index) =>
+               (
                 <tr key={index}>
                   <td>{menu.day}</td>
                   <td>{menu.breakfast}</td>
                   <td>{menu.lunch}</td>
                   <td>{menu.dinner}</td>
                 </tr>
-              ))}
+              )
+             
+              
+              )}
             </tbody>
           </table>
         </div>

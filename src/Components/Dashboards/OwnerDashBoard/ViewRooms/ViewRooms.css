@@ -1,143 +1,159 @@
-.room-card-advanced {
-  display: flex;
-  background: #ffffff;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease;
+.vr-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.vr-heading {
+  background: linear-gradient(to right, #15304b, #4fa3d1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2.5rem;
+  text-align: center;
+  font-weight: bold;
   margin-bottom: 2rem;
 }
 
-.room-card-advanced:hover {
-  transform: scale(1.01);
+.vr-room-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  justify-content: center;
 }
 
-.room-img-container {
-  width: 40%;
-  max-height: 250px;
+.vr-room-card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 }
 
-.room-img {
+.vr-room-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.vr-room-image {
   width: 100%;
-  height: 100%;
+  height: 200px;
   object-fit: cover;
-  border-right: 1px solid #eee;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
-.room-info {
-  width: 60%;
+.vr-room-details {
   padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
-.room-info h4 {
-  font-size: 1.4rem;
-  color: #2c3e50;
+.vr-room-details h4 {
+  color: #15304b;
   margin-bottom: 0.5rem;
 }
 
-.room-info h4 span {
-  font-weight: 600;
-  color: #3498db;
+.vr-room-details p {
+  color: #333;
+  font-size: 0.95rem;
+  margin: 4px 0;
 }
 
-.room-info p {
-  margin: 0.4rem 0;
-  font-size: 1rem;
+.vr-desc {
+  margin-top: 10px;
+  font-style: italic;
   color: #555;
 }
 
-.desc {
-  font-style: italic;
-  color: #888;
-  margin-top: 0.5rem;
-}
-
-.badge {
-  margin-left: 0.5rem;
-  padding: 0.3rem 0.6rem;
-  border-radius: 10px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  text-transform: capitalize;
-}
-
-.available {
-  background: #e0f8e9;
-  color: #2ecc71;
-  border: 1px solid #2ecc71;
-}
-
-.unavailable {
-  background: #ffe3e3;
-  color: #e74c3c;
-  border: 1px solid #e74c3c;
-}
-
-.action-buttons {
+.vr-amenities {
   margin-top: 1rem;
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.btn {
+.vr-amenity-tag {
+  background: #e1f5fe;
+  color: #0277bd;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.vr-status-badge {
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-left: 10px;
+  display: inline-block;
+}
+
+.vr-green {
+  background: #c8facc;
+  color: #2e7d32;
+}
+
+.vr-red {
+  background: #ffcccc;
+  color: #c62828;
+}
+
+.vr-action-buttons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 10px;
+}
+
+.vr-btn {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 6px;
-  border: none;
-  padding: 0.5rem 1.2rem;
-  border-radius: 10px;
-  font-weight: 500;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
+  transition: 0.3s ease-in-out;
 }
 
-.edit {
-  background: #3498db;
+.vr-edit {
+  background-color: #4fa3d1;
   color: white;
 }
 
-.edit:hover {
-  background: #2980b9;
+.vr-edit:hover {
+  background-color: #2f7ca5;
 }
 
-.delete {
-  background: #e74c3c;
+.vr-delete {
+  background-color: #e74c3c;
   color: white;
 }
 
-.delete:hover {
-  background: #c0392b;
+.vr-delete:hover {
+  background-color: #c0392b;
 }
 
-/* Responsive Mobile */
-@media screen and (max-width: 768px) {
-  .room-card-advanced {
-    flex-direction: column;
-  }
+.vr-text-center {
+  text-align: center;
+}
 
-  .room-img-container,
-  .room-info {
-    width: 100%;
-  }
+.vr-muted {
+  color: #999;
+}
 
-  .room-img-container {
-    height: 220px;
-  }
+.vr-loading-text {
+  font-size: 1.5rem;
+  padding-top: 3rem;
+}
 
-  .room-img {
-    height: 100%;
-  }
-
-  .action-buttons {
-    flex-direction: column;
-  }
-
-  .btn {
-    width: 100%;
+/* Responsive layout */
+@media (max-width: 768px) {
+  .vr-room-grid {
+    grid-template-columns: 1fr;
   }
 }

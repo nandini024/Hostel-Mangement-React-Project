@@ -1,47 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../../../firebaseConfig/firebaseConfig';
-import { collection, getDocs,updateDoc,doc } from "firebase/firestore";
+import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
 import { Card, Container, Row, Col, Spinner } from 'react-bootstrap';
 import "./OwnerBookings.css";
 
 function OwnerBooking() {
   const [viewBookedRoomData, setBookedRoomsData] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const handleConfirm = async (bookingId, userId) => {
-  await updateDoc(doc(db, "bookings", bookingId), {
-    status: "confirmed"
-  });
+    await updateDoc(doc(db, "bookings", bookingId), {
+      status: "confirmed"
+    });
 
-  await updateDoc(doc(db, "users", userId), {
-    bookingStatus: "confirmed"
-  });
-};
+    await updateDoc(doc(db, "users", userId), {
+      bookingStatus: "confirmed"
+    });
+  };
 
-
-const handleDelete = async (bookingroomId) => {
-  console.log(bookingroomId)
-  try {
-    console.log(viewBookedRoomData);
-    
-    const viewBookedRoomDataInfo=viewBookedRoomData.filter((r,index)=>index!=bookingroomId)
-    console.log(viewBookedRoomDataInfo);
-        setBookedRoomsData(viewBookedRoomDataInfo);
-
-
-    
-  } catch (error) {
-    console.log(error)
-    
-  }
-//   await updateDoc(doc(db, "bookings", bookingId), {
-//     status: "cancelled"
-//   });
-
-//   await updateDoc(doc(db, "users", userId), {
-//     bookingStatus: "cancelled"
-//   });
-};
-
+  const handleDelete = async (bookingroomId) => {
+    try {
+      const updatedData = viewBookedRoomData.filter((_, index) => index !== bookingroomId);
+      setBookedRoomsData(updatedData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const fetchBookedRoomData = async () => {
@@ -95,36 +79,38 @@ const handleDelete = async (bookingroomId) => {
                 src={room.images}
                 className="owner-card-img"
               />
-             <Card.Body className="owner-card-body">
-  <Card.Title className="owner-card-title">{room.roomType} Room</Card.Title>
-  <Card.Text className="owner-card-text"><strong>Room No:</strong> {room.roomNumber}</Card.Text>
-  <Card.Text className="owner-card-text"><strong>Description:</strong> {room.description}</Card.Text>
-  <Card.Text className="owner-card-text"><strong>Capacity:</strong> {room.capacity}</Card.Text>
-  <Card.Text className="owner-card-text">
-    <strong>Availability:</strong>{" "}
-    <span className={room.availability === "Available" ? "text-success" : "text-danger"}>
-      {room.availability}
-    </span>
-  </Card.Text>
-  <Card.Text className="owner-card-text"><strong>Price:</strong> ₹{room.price}</Card.Text>
-  <Card.Text className="owner-card-text"><strong>Booked By:</strong> {room.bookedBy}</Card.Text>
-  <Card.Text className="owner-card-text"><strong>Email:</strong> {room.email}</Card.Text>
-  <Card.Text className="owner-card-text">
-    <strong>Amenities:</strong>{" "}
-    {room.amenities?.length > 0 ? room.amenities.join(', ') : "N/A"}
-  </Card.Text>
+              <Card.Body className="owner-card-body">
+                <Card.Title className="owner-card-title">{room.roomType} Room</Card.Title>
+                <Card.Text className="owner-card-text"><strong>Room No:</strong> {room.roomNumber}</Card.Text>
+                <Card.Text className="owner-card-text"><strong>Description:</strong> {room.description}</Card.Text>
+                <Card.Text className="owner-card-text"><strong>Capacity:</strong> {room.capacity}</Card.Text>
+                <Card.Text className="owner-card-text">
+                  <strong>Availability:</strong>{" "}
+                  <span className={`availability-badge ${room.availability !== "Available" ? "red" : ""}`}>
+                    {room.availability}
+                  </span>
+                </Card.Text>
+                <Card.Text className="owner-card-text"><strong>Price:</strong> ₹{room.price}</Card.Text>
+                <Card.Text className="owner-card-text"><strong>Booked By:</strong> {room.bookedBy}</Card.Text>
+                <Card.Text className="owner-card-text"><strong>Email:</strong> {room.email}</Card.Text>
+                <Card.Text className="owner-card-text">
+                  <strong>Amenities:</strong>{" "}
+                  {room.amenities?.length > 0 ? (
+                    room.amenities.map((a, i) => (
+                      <span key={i} className="amenities-tag">{a}</span>
+                    ))
+                  ) : "N/A"}
+                </Card.Text>
 
-  <div className="d-flex justify-content-between mt-3">
-    
-    <button
-      className="btn btn-danger btn-sm"
-      onClick={()=>handleDelete(index)}
-    >
-      delete
-    </button>
-  </div>
-</Card.Body>
-
+                <div className="action-buttons">
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleDelete(index)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </Card.Body>
             </Card>
           </Col>
         ))}

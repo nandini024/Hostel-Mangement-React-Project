@@ -1,65 +1,134 @@
-/* .owner-bookings-container {
-  padding: 50px 20px;
-  background: linear-gradient(to right, #f8f9fa, #e9ecef);
-  border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+.owner-bookings-container {
+  padding: 40px 20px;
+  font-family: 'Poppins', sans-serif;
+  background: #f5f8fc;
 }
 
 .owner-booking-title {
-  font-size: 2.5rem;
-  color: #2c3e50;
+  font-size: 2.7rem;
   font-weight: bold;
-  margin-bottom: 30px;
-  text-shadow: 1px 1px 2px #dcdcdc;
+  text-align: center;
+  background: linear-gradient(to right, #15304b, #4fa3d1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 3rem;
+  letter-spacing: 1px;
 }
 
 .owner-card {
-  border: none;
-  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s ease-in-out;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background-color: #fff;
+  border: 1px solid #e0e0e0;
 }
 
 .owner-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 16px 40px rgba(21, 48, 75, 0.25);
 }
 
 .owner-card-img {
-  height: 200px;
+  height: 220px;
   object-fit: cover;
-  border-bottom: 1px solid #eee;
+  border-bottom: 2px solid #eee;
+  border-radius: 20px 20px 0 0;
 }
 
 .owner-card-body {
-  padding: 20px;
-  background-color: white;
+  padding: 22px;
 }
 
 .owner-card-title {
-  font-size: 1.5rem;
-  color: #007bff;
+  font-size: 1.6rem;
   font-weight: 600;
-  margin-bottom: 10px;
+  color: #15304b;
+  margin-bottom: 12px;
+  text-transform: capitalize;
 }
 
 .owner-card-text {
   font-size: 1rem;
-  color: #343a40;
+  color: #444;
   margin-bottom: 8px;
 }
 
 .owner-card-text strong {
-  color: #495057;
+  color: #1d3557;
 }
 
-.text-success {
+.availability-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
   font-weight: bold;
-  color: #28a745;
+  background: linear-gradient(to right, #48c774, #32a852);
+  color: white;
+  margin-left: 10px;
 }
 
-.text-danger {
+.availability-badge.red {
+  background: linear-gradient(to right, #ff6e7f, #bfe9ff);
+  color: #15304b;
   font-weight: bold;
-  color: #dc3545;
-} */
+}
+
+.amenities-tag {
+  display: inline-block;
+  background-color: #e3f2fd;
+  color: #1565c0;
+  padding: 6px 12px;
+  margin: 2px 6px 4px 0;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  box-shadow: inset 0 0 3px #cce;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.btn-danger.btn-sm {
+  background: linear-gradient(to right, #ff4e50, #f9d423);
+  color: #fff;
+  font-weight: bold;
+  padding: 8px 18px;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  border: none;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 105, 135, 0.4);
+}
+
+.btn-danger.btn-sm:hover {
+  background: linear-gradient(to right, #f12711, #f5af19);
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(241, 39, 17, 0.4);
+}
+
+/* Spinner center */
+.text-center {
+  text-align: center;
+}
+
+/* Responsive tweaks */
+@media screen and (max-width: 768px) {
+  .owner-card-title {
+    font-size: 1.3rem;
+  }
+
+  .owner-card-text {
+    font-size: 0.9rem;
+  }
+
+  .btn-danger.btn-sm {
+    padding: 7px 14px;
+    font-size: 0.85rem;
+  }
+}
